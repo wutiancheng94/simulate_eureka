@@ -22,7 +22,7 @@ public class RegisterClient {
      */
     private String serviceInstanceId;
 
-    public void setServiceInstanceId() {
+    public RegisterClient() {
         this.serviceInstanceId = UUID.randomUUID().toString().replace("-", "");
     }
 
@@ -68,7 +68,7 @@ public class RegisterClient {
         /**
          * 是否完成服务注册
          */
-        private Boolean finishedRegister;
+        private boolean finishedRegister;
 
         /**
          * 心跳间隔

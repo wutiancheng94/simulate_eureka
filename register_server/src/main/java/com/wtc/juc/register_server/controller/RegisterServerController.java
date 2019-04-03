@@ -1,9 +1,10 @@
 package com.wtc.juc.register_server.controller;
 
+import com.wtc.juc.register_server.entity.heartbeat.HeartbeatRequest;
+import com.wtc.juc.register_server.entity.heartbeat.HeartbeatResponse;
 import com.wtc.juc.register_server.entity.register.RegisterRequest;
 import com.wtc.juc.register_server.entity.register.RegisterResponse;
 import com.wtc.juc.register_server.entity.register.Registry;
-import com.wtc.juc.register_server.entity.service.Lease;
 import com.wtc.juc.register_server.entity.service.ServiceInstance;
 
 
@@ -33,7 +34,6 @@ public class RegisterServerController {
             serviceInstance.setHostname(registerRequest.getHostname());
             serviceInstance.setPort(registerRequest.getPort());
             serviceInstance.setServiceInstanceId(registerRequest.getServiceInstanceId());
-            serviceInstance.setLease(new Lease());
 
             registry.register(serviceInstance);
 
@@ -44,5 +44,18 @@ public class RegisterServerController {
         }
 
         return registerResponse;
+    }
+
+    /**
+     * 心跳续约
+     * @param heartbeatRequest 心跳请求
+     * @return  心跳响应
+     */
+    public HeartbeatResponse heartbeat(HeartbeatRequest heartbeatRequest) {
+        HeartbeatResponse heartbeatResponse = new HeartbeatResponse();
+        ServiceInstance serviceInstance = registry.get(heartbeatRequest.getServiceName(), heartbeatRequest.getServiceInstanceId());
+        serviceInstance.renew();
+        heartbeatResponse.setStatus(HeartbeatResponse.SUCCESS);
+        return heartbeatResponse;
     }
 }

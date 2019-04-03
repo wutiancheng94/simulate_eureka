@@ -50,4 +50,21 @@ public class ServiceInstance {
     public ServiceInstance() {
         this.lease = new Lease();
     }
+
+    public void renew() {
+        this.lease.renew();
+    }
+
+    private class Lease {
+
+        /**
+         * 最近心跳时间
+         */
+        private long latestHeartbeatTime;
+
+        public void renew() {
+            this.latestHeartbeatTime = System.currentTimeMillis();
+            System.out.println("服务实例【" + serviceInstanceId + "】，进行续约：" + latestHeartbeatTime);
+        }
+    }
 }
