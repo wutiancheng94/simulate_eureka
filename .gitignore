@@ -36,3 +36,5 @@
 /register_server/mvnw
 /register_server/mvnw.cmd
 /register_server/.mvn/
+/register_client/target/
+/register_server/target/

@@ -1,4 +1,4 @@
-package com.wtc.juc.register_client.request;
+package com.wtc.juc.register_server.entity.heartbeat;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
