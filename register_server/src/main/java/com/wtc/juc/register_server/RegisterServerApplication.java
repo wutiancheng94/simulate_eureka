@@ -3,6 +3,7 @@ package com.wtc.juc.register_server;
 import com.wtc.juc.register_server.controller.RegisterServerController;
 import com.wtc.juc.register_server.entity.heartbeat.HeartbeatRequest;
 import com.wtc.juc.register_server.entity.register.RegisterRequest;
+import com.wtc.juc.register_server.entity.service.ServiceAliveMonitor;
 
 import java.util.UUID;
 
@@ -27,6 +28,9 @@ public class RegisterServerApplication {
         heartbeatRequest.setServiceName(registerRequest.getServiceName());
         heartbeatRequest.setServiceInstanceId(registerRequest.getServiceInstanceId());
         serverController.heartbeat(heartbeatRequest);
+
+        ServiceAliveMonitor serviceAliveMonitor = new ServiceAliveMonitor();
+        serviceAliveMonitor.start();
 
         while (true) {
             try {

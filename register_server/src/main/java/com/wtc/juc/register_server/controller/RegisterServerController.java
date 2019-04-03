@@ -52,10 +52,16 @@ public class RegisterServerController {
      * @return  心跳响应
      */
     public HeartbeatResponse heartbeat(HeartbeatRequest heartbeatRequest) {
-        HeartbeatResponse heartbeatResponse = new HeartbeatResponse();
-        ServiceInstance serviceInstance = registry.get(heartbeatRequest.getServiceName(), heartbeatRequest.getServiceInstanceId());
-        serviceInstance.renew();
-        heartbeatResponse.setStatus(HeartbeatResponse.SUCCESS);
+        HeartbeatResponse heartbeatResponse = null;
+        try {
+            heartbeatResponse = new HeartbeatResponse();
+            ServiceInstance serviceInstance = registry.get(heartbeatRequest.getServiceName(), heartbeatRequest.getServiceInstanceId());
+            serviceInstance.renew();
+            heartbeatResponse.setStatus(HeartbeatResponse.SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            heartbeatResponse.setStatus(HeartbeatResponse.FAILURE);
+        }
         return heartbeatResponse;
     }
 }
